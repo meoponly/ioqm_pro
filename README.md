@@ -1,6 +1,10 @@
-# IOQM Pro - Minimalist Curriculum Library
-**IOQM Pro** is a comprehensive, minimalist library designed to streamline preparation for the Indian Olympiad Qualifier in Mathematics (IOQM). This platform aggregates high-quality video lectures, practice modules, and curated resources into a single, distraction-free interface.
+<p align="center">
+  <img src="banner.png" alt="IOQM Pro Banner" width="100%">
+</p>
 
+# IOQM Pro - Minimalist Curriculum Library
+
+**IOQM Pro** is a comprehensive, minimalist library designed to streamline preparation for the Indian Olympiad Qualifier in Mathematics (IOQM). This platform aggregates high-quality video lectures, practice modules, and curated resources into a single, distraction-free interface.
 
 > [!IMPORTANT]
 > **Disclaimer:** **IOQM Pro** is an unofficial, student-made resource index. All educational content, video lectures, and study modules linked in this repository are the intellectual property of **Physics Wallah (PW)**. This project is intended for educational purposes only—to provide an organized, minimalist interface for students to access publicly available PW resources more efficiently.
@@ -36,19 +40,19 @@ The library covers the complete IOQM syllabus, including:
 
 ## 📖 How to Use
 
-1.  **Visit the Site:** Go to [meoponly.github.io/ioqm_pro/](https://meoponly.github.io/ioqm_pro/).
-2.  **Select a Topic:** Click on any card (e.g., Number Theory or Geometry).
-3.  **Start Learning:** You will be directed to the relevant video playlist or resource file.
+1. **Visit the Site:** Go to [meoponly.github.io/ioqm_pro/](https://meoponly.github.io/ioqm_pro/).
+2. **Select a Topic:** Click on any card (e.g., Number Theory or Geometry).
+3. **Start Learning:** You will be directed to the relevant video playlist or resource file.
 
 ## 🤝 Contributing
 
 Contributions are welcome! If you have suggestions for new resources or UI improvements:
 
-1.  Fork the Project.
-2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`).
-3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`).
-4.  Push to the Branch (`git push origin feature/AmazingFeature`).
-5.  Open a Pull Request.
+1. Fork the Project.
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`).
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`).
+4. Push to the Branch (`git push origin feature/AmazingFeature`).
+5. Open a Pull Request.
 
 ## 📄 License
 
