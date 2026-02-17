@@ -1,4 +1,6 @@
 # IOQM Pro - Minimalist Curriculum Library
+**IOQM Pro** is a comprehensive, minimalist library designed to streamline preparation for the Indian Olympiad Qualifier in Mathematics (IOQM). This platform aggregates high-quality video lectures, practice modules, and curated resources into a single, distraction-free interface.
+
 
 > [!IMPORTANT]
 > **Disclaimer:** **IOQM Pro** is an unofficial, student-made resource index. All educational content, video lectures, and study modules linked in this repository are the intellectual property of **Physics Wallah (PW)**. This project is intended for educational purposes only—to provide an organized, minimalist interface for students to access publicly available PW resources more efficiently.
@@ -6,8 +8,6 @@
 [![GitHub Stars](https://img.shields.io/github/stars/meoponly/ioqm_pro?style=flat-square)](https://github.com/meoponly/ioqm_pro/stargazers)
 [![GitHub License](https://img.shields.io/github/license/meoponly/ioqm_pro?style=flat-square)](LICENSE)
 [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=flat-square)](https://meoponly.github.io/ioqm_pro/)
-
-**IOQM Pro** is a comprehensive, minimalist library designed to streamline preparation for the Indian Olympiad Qualifier in Mathematics (IOQM). This platform aggregates high-quality video lectures, practice modules, and curated resources into a single, distraction-free interface.
 
 ---
 
