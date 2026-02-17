@@ -1,5 +1,8 @@
 # IOQM Pro - Minimalist Curriculum Library
 
+> [!IMPORTANT]
+> **Disclaimer:** **IOQM Pro** is an unofficial, student-made resource index. All educational content, video lectures, and study modules linked in this repository are the intellectual property of **Physics Wallah (PW)**. This project is intended for educational purposes only—to provide an organized, minimalist interface for students to access publicly available PW resources more efficiently.
+
 [![GitHub Stars](https://img.shields.io/github/stars/meoponly/ioqm_pro?style=flat-square)](https://github.com/meoponly/ioqm_pro/stargazers)
 [![GitHub License](https://img.shields.io/github/license/meoponly/ioqm_pro?style=flat-square)](LICENSE)
 [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=flat-square)](https://meoponly.github.io/ioqm_pro/)
@@ -54,7 +57,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## 📬 Contact
 
 **Meoponly** YouTube: [@meoponly](https://www.youtube.com/@meoponly)  
-Project Link: [https://github.com/meoponly/ioqm_pro](https://github.com/meoponly/ioqm_pro)
+**Project Link:** [https://github.com/meoponly/ioqm_pro](https://github.com/meoponly/ioqm_pro)
 
 ---
 *Developed with ❤️ for the Mathematics Community.*
