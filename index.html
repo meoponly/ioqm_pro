@@ -32,13 +32,16 @@
             --text-light: #424245;
             --accent: #0071e3;
             --blur-amount: 25px;
+            /* Skeleton Colors */
+            --skeleton-bg: #e8e8e8;
+            --skeleton-shimmer: rgba(255, 255, 255, 0.6);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            cursor: none !important; /* Hide system pointer site-wide */
+            cursor: none !important;
         }
 
         body {
@@ -47,7 +50,6 @@
             color: var(--text-main);
             overflow-x: hidden;
             min-height: 100vh;
-            /* Enhanced & More Colorful Mesh Gradient Background */
             background-image: 
                 radial-gradient(at 0% 0%, #c7d2fe 0, transparent 50%), 
                 radial-gradient(at 50% 0%, #fbcfe8 0, transparent 50%), 
@@ -57,7 +59,45 @@
             background-attachment: fixed;
         }
 
-        /* --- Apple Glass Cursor (Zero Lag) --- */
+        /* --- Global Skeleton Shimmer --- */
+        .skeleton {
+            position: relative !important;
+            overflow: hidden !important;
+            background: var(--skeleton-bg) !important;
+            border-color: transparent !important;
+            color: transparent !important;
+            pointer-events: none !important;
+        }
+
+        .skeleton * {
+            visibility: hidden !important;
+        }
+
+        /* The moving gradient */
+        .skeleton::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                var(--skeleton-shimmer),
+                transparent
+            );
+            transform: translateX(-100%);
+            animation: shimmer 1.5s infinite;
+            z-index: 10;
+            visibility: visible !important;
+        }
+
+        @keyframes shimmer {
+            100% { transform: translateX(100%); }
+        }
+
+        /* --- Apple Glass Cursor --- */
         #glass-cursor {
             position: fixed;
             top: 0; left: 0;
@@ -80,11 +120,10 @@
             backdrop-filter: blur(10px) !important;
         }
 
-        /* --- Floating Navigation --- */
+        /* --- Nav --- */
         #main-nav {
             position: fixed;
-            top: 20px; 
-            left: 50%;
+            top: 20px; left: 50%;
             transform: translateX(-50%);
             width: calc(100% - 40px);
             max-width: 1120px;
@@ -97,7 +136,7 @@
             backdrop-filter: blur(var(--blur-amount));
             -webkit-backdrop-filter: blur(var(--blur-amount));
             border: 1px solid var(--glass-border);
-            border-radius: 100px; /* Floating capsule style */
+            border-radius: 100px;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -105,17 +144,9 @@
             top: 10px;
             padding: 10px 30px;
             background: rgba(255, 255, 255, 0.7);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
         }
 
-        .nav-logo {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--text-main);
-            text-decoration: none;
-            letter-spacing: -0.02em;
-        }
+        .nav-logo { font-size: 18px; font-weight: 800; color: var(--text-main); text-decoration: none; }
 
         /* --- Layout --- */
         .container {
@@ -124,28 +155,13 @@
             padding: 160px 40px 60px;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
+        header { text-align: center; margin-bottom: 80px; }
 
-        h1 {
-            font-size: clamp(36px, 6vw, 72px);
-            font-weight: 800;
-            letter-spacing: -0.04em;
-            margin-bottom: 20px;
-            line-height: 1.1;
-        }
+        h1 { font-size: clamp(36px, 6vw, 72px); font-weight: 800; margin-bottom: 20px; line-height: 1.1; }
 
-        .header-sub {
-            max-width: 600px;
-            margin: 0 auto;
-            color: var(--text-light);
-            font-size: 1.2rem;
-            line-height: 1.5;
-        }
+        .header-sub { max-width: 600px; margin: 0 auto; color: var(--text-light); font-size: 1.2rem; }
 
-        /* --- Glass Cards --- */
+        /* --- Grid & Cards --- */
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -161,16 +177,16 @@
             border: 1px solid var(--glass-border);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             opacity: 0;
-            transform: translateY(40px);
-            will-change: transform, opacity;
+            transform: translateY(20px);
         }
 
-        .card.is-visible {
+        /* Reveal state when loaded */
+        body.loaded .card {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .card:hover {
+        .card:hover:not(.skeleton) {
             transform: scale(1.03) translateY(-5px);
             background: rgba(255, 255, 255, 0.6);
             box-shadow: 0 20px 40px rgba(0,0,0,0.05);
@@ -188,7 +204,6 @@
             align-items: center;
             justify-content: center;
             margin-right: 18px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
         .title { font-weight: 600; font-size: 1.2rem; }
@@ -204,12 +219,6 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            background: #000;
-            transform: translateY(-2px);
         }
 
         .cta-btn {
@@ -219,68 +228,61 @@
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.9rem;
-            transition: transform 0.2s ease;
         }
 
-        footer {
-            padding: 80px 0 40px;
-            text-align: center;
-            color: var(--text-light);
-            font-size: 0.85rem;
-        }
+        footer { padding: 80px 0 40px; text-align: center; color: var(--text-light); font-size: 0.85rem; }
 
         @media (max-width: 768px) {
             #glass-cursor { display: none; }
             * { cursor: auto !important; }
-            #main-nav { width: calc(100% - 20px); top: 10px; padding: 10px 20px; }
+            #main-nav { width: calc(100% - 20px); top: 10px; }
             .container { padding: 120px 20px 40px; }
         }
     </style>
 </head>
-<body>
+<body class="loading-state">
 
     <div id="glass-cursor"></div>
 
-    <nav id="main-nav">
+    <nav id="main-nav" class="skeleton">
         <a class="nav-logo hover-target" href="#">IOQM PRO</a>
         <a class="cta-btn hover-target" href="https://www.youtube.com/@meoponly?sub_confirmation=1" target="_blank">Join Now</a>
     </nav>
 
     <div class="container">
         <header>
-            <h1>IOQM Curriculum Library</h1>
-            <p class="header-sub">A comprehensive, minimalist collection of chapters lectures for your IOQM preparation.</p>
+            <h1 class="skeleton">IOQM Curriculum Library</h1>
+            <p class="header-sub skeleton">A comprehensive, minimalist collection of chapters lectures for your IOQM preparation.</p>
         </header>
 
         <section id="playlists" class="card-grid">
-            <div class="card scroll-animate" data-scroll-delay="0.1"><div class="card-top"><div class="icon">MO</div><div><p class="title">Module (PDF Only)</p><p class="sub">Resources</p></div></div><a class="btn hover-target" target="_blank" href="https://youtu.be/v8BdZKKBl5Q?si=fql_D7bh67VgYq9g">Get It</a></div>
-            <div class="card scroll-animate" data-scroll-delay="0.2"><div class="card-top"><div class="icon">PS</div><div><p class="title">Practice Sheet (PDF Only)</p><p class="sub">Resources</p></div></div><a class="btn hover-target" target="_blank" href="https://youtu.be/v8BdZKKBl5Q?si=fql_D7bh67VgYq9g">Get It</a></div>
-            <div class="card scroll-animate" data-scroll-delay="0.3"><div class="card-top"><div class="icon">RS</div><div><p class="title">Resources Index</p><p class="sub">Resources</p></div></div><a class="btn hover-target" target="_blank" href="https://youtu.be/v8BdZKKBl5Q?si=fql_D7bh67VgYq9g">Open Link</a></div>
-            <div class="card scroll-animate" data-scroll-delay="0.4"><div class="card-top"><div class="icon">IQ</div><div><p class="title">IOQM Imp. Questions</p><p class="sub">Practice</p></div></div><a class="btn hover-target" target="_blank" href="https://youtu.be/v8BdZKKBl5Q?si=fql_D7bh67VgYq9g">Open Video</a></div>
-            <div class="card scroll-animate" data-scroll-delay="0.5"><div class="card-top"><div class="icon">BM</div><div><p class="title">Basic Mathematics</p><p class="sub">Foundation</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNNiHeYVwUlCt6veez68e3SX">Open Playlist</a></div>
-            <div class="card scroll-animate" data-scroll-delay="0.6"><div class="card-top"><div class="icon">N1</div><div><p class="title">Number Theory (Part-01)</p><p class="sub">Core Topic</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNMJI3ig_SU7YQC2Vch4Njbn">Open Playlist</a></div>
-            <div class="card scroll-animate" data-scroll-delay="0.7"><div class="card-top"><div class="icon">N2</div><div><p class="title">Number Theory (Part-02)</p><p class="sub">Core Topic</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNPFHRZtiJ3d9Dcp1o8UciUD">Open Playlist</a></div>
-            <div class="card scroll-animate" data-scroll-delay="0.8"><div class="card-top"><div class="icon">N3</div><div><p class="title">Number Theory (Part-03)</p><p class="sub">Core Topic</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNN313zCuftoyLoxO0bED5nt">Open Playlist</a></div>
-            <div class="card scroll-animate" data-scroll-delay="0.9"><div class="card-top"><div class="icon">AQ</div><div><p class="title">Algebra (Poly. & Quad. Eq.)</p><p class="sub">Core Topic</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNN7No_bhNYfvJq-rFgWbPW7">Open Playlist</a></div>
-            <div class="card scroll-animate" data-scroll-delay="1.0"><div class="card-top"><div class="icon">AS</div><div><p class="title">Algebra (Seq. & Series)</p><p class="sub">Core Topic</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNMZUcpF4Hhr6p3P6h2z3HFy">Open Playlist</a></div>
-            <div class="card scroll-animate" data-scroll-delay="1.1"><div class="card-top"><div class="icon">RR</div><div><p class="title">Recurrence Relation</p><p class="sub">Advanced</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNNLZcnosBAGvsff-OjmSqh_">Open Playlist</a></div>
-            <div class="card scroll-animate" data-scroll-delay="1.2"><div class="card-top"><div class="icon">IN</div><div><p class="title">Inequalities</p><p class="sub">Core Topic</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNM5SZqR_-AzSARUWusduHf2">Open Playlist</a></div>
-            <div class="card scroll-animate" data-scroll-delay="1.3"><div class="card-top"><div class="icon">GT</div><div><p class="title">Geometry (Triangles)</p><p class="sub">Core Topic</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNM-s7R_anROCJxu9Z0A6gbO">Open Playlist</a></div>
-            <div class="card scroll-animate" data-scroll-delay="1.4"><div class="card-top"><div class="icon">GQ</div><div><p class="title">Geometry (Quad. & Circles)</p><p class="sub">Core Topic</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNOi-ll4AE562AoomCwS43uL">Open Playlist</a></div>
-            <div class="card scroll-animate" data-scroll-delay="1.5"><div class="card-top"><div class="icon">GC</div><div><p class="title">Geometry (Coord. Geom.)</p><p class="sub">Core Topic</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNPA3bMCE1bfMeDvMqAEIVjr">Open Playlist</a></div>
-            <div class="card scroll-animate" data-scroll-delay="1.6"><div class="card-top"><div class="icon">BT</div><div><p class="title">Binomial Theorem</p><p class="sub">Advanced</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNOnS9SdCnXigpYJKFvMrru5">Open Playlist</a></div>
-            <div class="card scroll-animate" data-scroll-delay="1.7"><div class="card-top"><div class="icon">C1</div><div><p class="title">Combinatorics (Part-01)</p><p class="sub">Advanced</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNMZNP1oGwbw46jqCceR8yn7">Open Playlist</a></div>
-            <div class="card scroll-animate" data-scroll-delay="1.8"><div class="card-top"><div class="icon">C2</div><div><p class="title">Combinatorics (Part-02)</p><p class="sub">Advanced</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNPWFW5en-iU90NYJ5SQwxgJ">Open Playlist</a></div>
-            <div class="card scroll-animate" data-scroll-delay="1.9"><div class="card-top"><div class="icon">PR</div><div><p class="title">Probability</p><p class="sub">Advanced</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNOT-JjFPtwchpnsJevvd11L">Open Playlist</a></div>
-            <div class="card scroll-animate" data-scroll-delay="2.0"><div class="card-top"><div class="icon">A5</div><div><p class="title">Algebra (Part-05)</p><p class="sub">Core Topic</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNMbXhAAqAhxBd4H9swjyEZs">Open Playlist</a></div>
-            <div class="card scroll-animate" data-scroll-delay="2.1"><div class="card-top"><div class="icon">CH</div><div><p class="title">Charcha Session</p><p class="sub">Community</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNPLdhBHp6sww5mWKIoXonPH">Open Playlist</a></div>
-            <div class="card scroll-animate" data-scroll-delay="2.2"><div class="card-top"><div class="icon">DS</div><div><p class="title">Doubt Session</p><p class="sub">Community</p></div></div><a class="btn hover-target" target="_blank" href="https://youtu.be/v8BdZKKBl5Q?si=fql_D7bh67VgYq9g">Open Video</a></div>
-            <div class="card scroll-animate" data-scroll-delay="2.3"><div class="card-top"><div class="icon">EX</div><div><p class="title">Extra Session</p><p class="sub">Advanced</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNPYRXxpH5LomjE4GhGuep0X">Open Playlist</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">MO</div><div><p class="title">Module (PDF Only)</p><p class="sub">Resources</p></div></div><a class="btn hover-target" target="_blank" href="https://youtu.be/v8BdZKKBl5Q?si=fql_D7bh67VgYq9g">Get It</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">PS</div><div><p class="title">Practice Sheet (PDF Only)</p><p class="sub">Resources</p></div></div><a class="btn hover-target" target="_blank" href="https://youtu.be/v8BdZKKBl5Q?si=fql_D7bh67VgYq9g">Get It</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">RS</div><div><p class="title">Resources Index</p><p class="sub">Resources</p></div></div><a class="btn hover-target" target="_blank" href="https://youtu.be/v8BdZKKBl5Q?si=fql_D7bh67VgYq9g">Open Link</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">IQ</div><div><p class="title">IOQM Imp. Questions</p><p class="sub">Practice</p></div></div><a class="btn hover-target" target="_blank" href="https://youtu.be/v8BdZKKBl5Q?si=fql_D7bh67VgYq9g">Open Video</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">BM</div><div><p class="title">Basic Mathematics</p><p class="sub">Foundation</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNNiHeYVwUlCt6veez68e3SX">Open Playlist</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">N1</div><div><p class="title">Number Theory (Part-01)</p><p class="sub">Core Topic</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNMJI3ig_SU7YQC2Vch4Njbn">Open Playlist</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">N2</div><div><p class="title">Number Theory (Part-02)</p><p class="sub">Core Topic</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNPFHRZtiJ3d9Dcp1o8UciUD">Open Playlist</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">N3</div><div><p class="title">Number Theory (Part-03)</p><p class="sub">Core Topic</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNN313zCuftoyLoxO0bED5nt">Open Playlist</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">AQ</div><div><p class="title">Algebra (Poly. & Quad. Eq.)</p><p class="sub">Core Topic</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNN7No_bhNYfvJq-rFgWbPW7">Open Playlist</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">AS</div><div><p class="title">Algebra (Seq. & Series)</p><p class="sub">Core Topic</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNMZUcpF4Hhr6p3P6h2z3HFy">Open Playlist</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">RR</div><div><p class="title">Recurrence Relation</p><p class="sub">Advanced</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNNLZcnosBAGvsff-OjmSqh_">Open Playlist</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">IN</div><div><p class="title">Inequalities</p><p class="sub">Core Topic</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNM5SZqR_-AzSARUWusduHf2">Open Playlist</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">GT</div><div><p class="title">Geometry (Triangles)</p><p class="sub">Core Topic</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNM-s7R_anROCJxu9Z0A6gbO">Open Playlist</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">GQ</div><div><p class="title">Geometry (Quad. & Circles)</p><p class="sub">Core Topic</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNOi-ll4AE562AoomCwS43uL">Open Playlist</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">GC</div><div><p class="title">Geometry (Coord. Geom.)</p><p class="sub">Core Topic</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNPA3bMCE1bfMeDvMqAEIVjr">Open Playlist</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">BT</div><div><p class="title">Binomial Theorem</p><p class="sub">Advanced</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNOnS9SdCnXigpYJKFvMrru5">Open Playlist</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">C1</div><div><p class="title">Combinatorics (Part-01)</p><p class="sub">Advanced</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNMZNP1oGwbw46jqCceR8yn7">Open Playlist</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">C2</div><div><p class="title">Combinatorics (Part-02)</p><p class="sub">Advanced</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNPWFW5en-iU90NYJ5SQwxgJ">Open Playlist</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">PR</div><div><p class="title">Probability</p><p class="sub">Advanced</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNOT-JjFPtwchpnsJevvd11L">Open Playlist</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">A5</div><div><p class="title">Algebra (Part-05)</p><p class="sub">Core Topic</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNMbXhAAqAhxBd4H9swjyEZs">Open Playlist</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">CH</div><div><p class="title">Charcha Session</p><p class="sub">Community</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNPLdhBHp6sww5mWKIoXonPH">Open Playlist</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">DS</div><div><p class="title">Doubt Session</p><p class="sub">Community</p></div></div><a class="btn hover-target" target="_blank" href="https://youtu.be/v8BdZKKBl5Q?si=fql_D7bh67VgYq9g">Open Video</a></div>
+            <div class="card skeleton"><div class="card-top"><div class="icon">EX</div><div><p class="title">Extra Session</p><p class="sub">Advanced</p></div></div><a class="btn hover-target" target="_blank" href="https://www.youtube.com/playlist?list=PLs-7JBInDcNPYRXxpH5LomjE4GhGuep0X">Open Playlist</a></div>
         </section>
     </div>
 
-    <footer>
+    <footer class="skeleton">
         <p>© 2026 Meoponly — All rights reserved.</p>
         <p>Developed with ❤️ by Meoponly</p>
     </footer>
@@ -290,41 +292,36 @@
             const nav = document.getElementById('main-nav');
             const cursor = document.getElementById('glass-cursor');
             
-            // Floating Nav Scroll Effect
+            // Sync Glass Cursor
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+            });
+
+            // Nav Scroll
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 40) nav.classList.add('scrolled');
                 else nav.classList.remove('scrolled');
             });
 
-            // Sync Glass Cursor (GPU Accelerated)
-            document.addEventListener('mousemove', (e) => {
-                const x = e.clientX;
-                const y = e.clientY;
-                cursor.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
-            });
-
-            // Hover Scaling
+            // Hover effects
             const hoverElements = document.querySelectorAll('.btn, .cta-btn, .nav-logo, .card');
             hoverElements.forEach(el => {
                 el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
                 el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
             });
 
-            // Smooth Intersection Entrances
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const card = entry.target;
-                        const delay = parseFloat(card.dataset.scrollDelay) || 0;
-                        setTimeout(() => {
-                            card.classList.add('is-visible');
-                            observer.unobserve(card);
-                        }, delay * 150); 
-                    }
+            // --- UNIFIED LOADING TRIGGER ---
+            // Instead of observing scroll, we trigger everything after a set time
+            setTimeout(() => {
+                // Remove skeleton from ALL elements at once
+                document.querySelectorAll('.skeleton').forEach(el => {
+                    el.classList.remove('skeleton');
                 });
-            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-            document.querySelectorAll('.scroll-animate').forEach(card => observer.observe(card));
+                
+                // Trigger card animations
+                document.body.classList.add('loaded');
+                
+            }, 2000); // 2 seconds of loading time for everyone
         });
     </script>
 </body>
