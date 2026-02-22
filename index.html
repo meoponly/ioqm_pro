@@ -5,7 +5,7 @@
     <meta name="google-site-verification" content="Xm_ZraqUgAysZ8B65dUF-pUvqkOadV0ESHlLuKlHHnA" />
     <meta name="google-site-verification" content="VW7VeG5bvX5OmfHkhgJbl0ePzwiDdF3rX0fLWBFKMCE" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>IOQM Pro - Minimalast Library</title>
+    <title>IOQM Pro - Minimalist Library</title>
 
     <script type="application/ld+json">
     {
@@ -31,8 +31,7 @@
             --text-main: #1d1d1f;
             --text-light: #424245;
             --accent: #0071e3;
-            --blur-amount: 25px;
-            /* Skeleton Colors */
+            --blur-amount: 20px;
             --skeleton-bg: #e8e8e8;
             --skeleton-shimmer: rgba(255, 255, 255, 0.6);
         }
@@ -59,58 +58,41 @@
             background-attachment: fixed;
         }
 
-        /* --- Global Skeleton Shimmer --- */
+        /* --- Optimized Skeleton --- */
         .skeleton {
-            position: relative !important;
-            overflow: hidden !important;
+            position: relative;
             background: var(--skeleton-bg) !important;
-            border-color: transparent !important;
             color: transparent !important;
-            pointer-events: none !important;
+            border-color: transparent !important;
+            pointer-events: none;
+            overflow: hidden;
         }
 
-        .skeleton * {
-            visibility: hidden !important;
-        }
-
-        /* The moving gradient */
         .skeleton::after {
             content: "";
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                var(--skeleton-shimmer),
-                transparent
-            );
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, var(--skeleton-shimmer), transparent);
             transform: translateX(-100%);
             animation: shimmer 1.5s infinite;
-            z-index: 10;
-            visibility: visible !important;
         }
 
-        @keyframes shimmer {
-            100% { transform: translateX(100%); }
-        }
+        @keyframes shimmer { 100% { transform: translateX(100%); } }
 
-        /* --- Apple Glass Cursor --- */
+        /* --- Optimized Cursor --- */
         #glass-cursor {
             position: fixed;
             top: 0; left: 0;
             width: 12px; height: 12px;
             background: rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(4px);
             border-radius: 50%;
             pointer-events: none;
-            z-index: 99999;
+            z-index: 9999;
             will-change: transform;
-            transition: width 0.3s cubic-bezier(0.2, 0, 0.2, 1), height 0.3s cubic-bezier(0.2, 0, 0.2, 1), background 0.3s ease;
             transform: translate3d(-50%, -50%, 0);
+            transition: width 0.2s ease, height 0.2s ease;
         }
 
         .cursor-hover {
@@ -120,7 +102,7 @@
             backdrop-filter: blur(10px) !important;
         }
 
-        /* --- Nav --- */
+        /* --- Navigation --- */
         #main-nav {
             position: fixed;
             top: 20px; left: 50%;
@@ -134,10 +116,10 @@
             align-items: center;
             background: var(--glass-bg);
             backdrop-filter: blur(var(--blur-amount));
-            -webkit-backdrop-filter: blur(var(--blur-amount));
             border: 1px solid var(--glass-border);
             border-radius: 100px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
+            transform: translateX(-50%) translateZ(0); /* GPU Acceleration */
         }
 
         #main-nav.scrolled {
@@ -156,12 +138,10 @@
         }
 
         header { text-align: center; margin-bottom: 80px; }
-
         h1 { font-size: clamp(36px, 6vw, 72px); font-weight: 800; margin-bottom: 20px; line-height: 1.1; }
-
         .header-sub { max-width: 600px; margin: 0 auto; color: var(--text-light); font-size: 1.2rem; }
 
-        /* --- Grid & Cards --- */
+        /* --- Optimized Cards --- */
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -171,29 +151,24 @@
         .card {
             background: var(--glass-bg);
             backdrop-filter: blur(var(--blur-amount));
-            -webkit-backdrop-filter: blur(var(--blur-amount));
             border-radius: 28px;
             padding: 30px;
             border: 1px solid var(--glass-border);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(20px) translateZ(0); /* GPU Acceleration */
+            will-change: transform, opacity;
         }
 
-        /* Reveal state when loaded */
-        body.loaded .card {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        body.loaded .card { opacity: 1; transform: translateY(0); }
 
-        .card:hover:not(.skeleton) {
-            transform: scale(1.03) translateY(-5px);
+        .card:hover {
+            transform: scale(1.03) translateY(-5px) translateZ(0);
             background: rgba(255, 255, 255, 0.6);
             box-shadow: 0 20px 40px rgba(0,0,0,0.05);
         }
 
         .card-top { display: flex; align-items: center; margin-bottom: 20px; }
-
         .icon {
             width: 52px; height: 52px;
             border-radius: 16px;
@@ -201,34 +176,25 @@
             color: #000;
             font-weight: 800;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            align-items: center; justify-content: center;
             margin-right: 18px;
         }
 
         .title { font-weight: 600; font-size: 1.2rem; }
         .sub { font-size: 0.8rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.1em; }
 
-        .btn {
+        .btn, .cta-btn {
             display: inline-flex;
             align-items: center;
-            padding: 12px 24px;
             background: #1d1d1f;
             color: #fff;
-            border-radius: 14px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.9rem;
+            transition: background 0.2s ease;
         }
 
-        .cta-btn {
-            background: #1d1d1f;
-            color: #fff;
-            padding: 10px 22px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-        }
+        .btn { padding: 12px 24px; border-radius: 14px; font-size: 0.9rem; }
+        .cta-btn { padding: 10px 22px; border-radius: 50px; }
 
         footer { padding: 80px 0 40px; text-align: center; color: var(--text-light); font-size: 0.85rem; }
 
@@ -240,7 +206,7 @@
         }
     </style>
 </head>
-<body class="loading-state">
+<body>
 
     <div id="glass-cursor"></div>
 
@@ -291,37 +257,43 @@
         document.addEventListener('DOMContentLoaded', () => {
             const nav = document.getElementById('main-nav');
             const cursor = document.getElementById('glass-cursor');
-            
-            // Sync Glass Cursor
+            let mX = 0, mY = 0, cX = 0, cY = 0;
+
+            // Smooth Throttled Cursor Logic
             document.addEventListener('mousemove', (e) => {
-                cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
-            });
+                mX = e.clientX; mY = e.clientY;
+            }, { passive: true });
 
-            // Nav Scroll
+            function updateCursor() {
+                cX += (mX - cX) * 0.15; // Smooth interpolation
+                cY += (mY - cY) * 0.15;
+                cursor.style.transform = `translate3d(${cX}px, ${cY}px, 0) translate(-50%, -50%)`;
+                requestAnimationFrame(updateCursor);
+            }
+            requestAnimationFrame(updateCursor);
+
+            // Optimized Scroll Handler
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 40) nav.classList.add('scrolled');
-                else nav.classList.remove('scrolled');
+                nav.classList.toggle('scrolled', window.scrollY > 40);
+            }, { passive: true });
+
+            // Unified Event Delegation
+            document.addEventListener('mouseover', (e) => {
+                if (e.target.closest('.hover-target, .card, .btn, .cta-btn')) {
+                    cursor.classList.add('cursor-hover');
+                }
+            });
+            document.addEventListener('mouseout', (e) => {
+                if (e.target.closest('.hover-target, .card, .btn, .cta-btn')) {
+                    cursor.classList.remove('cursor-hover');
+                }
             });
 
-            // Hover effects
-            const hoverElements = document.querySelectorAll('.btn, .cta-btn, .nav-logo, .card');
-            hoverElements.forEach(el => {
-                el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
-                el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
-            });
-
-            // --- UNIFIED LOADING TRIGGER ---
-            // Instead of observing scroll, we trigger everything after a set time
+            // Clean Transition
             setTimeout(() => {
-                // Remove skeleton from ALL elements at once
-                document.querySelectorAll('.skeleton').forEach(el => {
-                    el.classList.remove('skeleton');
-                });
-                
-                // Trigger card animations
+                document.querySelectorAll('.skeleton').forEach(el => el.classList.remove('skeleton'));
                 document.body.classList.add('loaded');
-                
-            }, 2000); // 2 seconds of loading time for everyone
+            }, 1000);
         });
     </script>
 </body>
