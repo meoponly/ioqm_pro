@@ -32,7 +32,6 @@ body {
     align-items: center;
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
     border-radius: 50px;
     border: 1px solid rgba(255,255,255,0.3);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
@@ -44,7 +43,6 @@ body {
     text-decoration: none;
     color: var(--text-main);
     font-size: 1.2rem;
-    letter-spacing: -0.5px;
 }
 
 .cta-btn {
@@ -70,7 +68,7 @@ header {
 }
 
 h1 {
-    font-size: clamp(42px, 7vw, 72px);
+    font-size: clamp(36px, 6vw, 64px);
     font-weight: 800;
     letter-spacing: -2px;
     margin-bottom: 20px;
@@ -78,68 +76,73 @@ h1 {
 
 .header-sub {
     color: var(--text-light);
-    font-size: 1.2rem;
-    max-width: 650px;
+    font-size: 1.1rem;
+    max-width: 600px;
     margin: auto;
 }
 
-/* Bigger Grid & Cards */
+/* Card Grid */
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); /* Wider cards */
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
     gap: 30px;
 }
 
 .card {
     background: #fff;
     border-radius: 30px;
-    padding: 45px; /* Spacious interior */
+    padding: 40px;
     border: 1px solid rgba(0,0,0,0.03);
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: var-card-shadow;
 }
 
 .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.06);
 }
 
 .title {
     font-weight: 600;
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-size: 1.4rem;
+    margin-bottom: 8px;
 }
 
 .sub {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-light);
     text-transform: uppercase;
     font-weight: 700;
     letter-spacing: 0.1em;
 }
 
-/* Modern Minimalist Buttons (No black border) */
-.btn {
-    display: inline-block;
+/* Updated Button Group Styling */
+.button-group {
+    display: flex;
+    gap: 10px;
     margin-top: 30px;
-    background: #f5f5f7; /* Very light neutral fill */
+    flex-wrap: wrap;
+}
+
+.btn {
+    flex: 1;
+    min-width: 80px;
+    background: #f5f5f7; 
     color: var(--text-main);
-    padding: 16px 28px;
-    border-radius: 18px;
+    padding: 14px;
+    border-radius: 16px;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 0.85rem;
     font-weight: 600;
     text-align: center;
-    transition: all 0.3s ease;
-    border: none;
+    transition: all 0.2s ease;
 }
 
 .btn:hover {
-    background: #111;
-    color: #fff;
+    background: #e8e8ed;
+    transform: scale(1.02);
 }
 
 /* Footer */
